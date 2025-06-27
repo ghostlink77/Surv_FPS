@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     private void Crouch()
     {
         isCrouching = !isCrouching;
+
         if (isCrouching)
         {
             applySpeed = crouchSpeed;
