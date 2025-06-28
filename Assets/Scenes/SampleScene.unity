@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 677dbaec1ce252a4fb65435b17e01b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunName: SubMachineGun1
+  gunName: SubMachineGun1
   range: 100
   accuracy: 0.01
   fireRate: 0.18
@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 217422605}
   - component: {fileID: 217422606}
   - component: {fileID: 217422607}
+  - component: {fileID: 217422608}
   m_Layer: 2
   m_Name: Holder
   m_TagString: Untagged
@@ -407,7 +408,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217422603}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eea675f7ff59b0247b5f712778afeaca, type: 3}
   m_Name: 
@@ -526,6 +527,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &217422608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217422603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac851ccd5d65a041844be61d60b6c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeWeaponDelay: 0.1
+  changeWeaponEndDelay: 0.1
+  currentWeaponType: Gun
+  gunController: {fileID: 217422606}
+  handController: {fileID: 217422605}
+  guns:
+  - {fileID: 144932915}
+  hands:
+  - {fileID: 1818129769}
 --- !u!1 &324341726
 GameObject:
   m_ObjectHideFlags: 0
@@ -6786,7 +6808,7 @@ MonoBehaviour:
   crouchSpeed: 2
   lookSensitivity: 2
   cameraRotationLimit: 45
-  jumpForce: 10
+  jumpForce: 4
   crouchPosY: 0
   camera: {fileID: 330585545}
 --- !u!1 &1120466135

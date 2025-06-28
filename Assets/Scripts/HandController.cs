@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
+    public static bool isActivate = false;
+
     [SerializeField] private Hand currentHand;
 
     private bool isAttacking = false;
@@ -12,6 +14,7 @@ public class HandController : MonoBehaviour
 
     void Update()
     {
+        if (!isActivate) return;
         TryAttack();
     }
 
@@ -60,5 +63,20 @@ public class HandController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void HandChange(Hand hand)
+    {
+        if (WeaponManager.currentWeapon != null)
+        {
+            WeaponManager.currentWeapon.gameObject.SetActive(false);
+        }
+        currentHand = hand;
+        WeaponManager.currentWeapon = currentHand.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnimator = currentHand.animator;
+        currentHand.transform.localPosition = Vector3.zero;
+
+        currentHand.gameObject.SetActive(true);
+        isActivate = true;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine.Rendering;
 
 public class GunController : MonoBehaviour
 {
+    public static bool isActivate = true;
+
     [SerializeField] private Gun currentGun;
     [SerializeField] private Camera camera;
     [SerializeField] private GameObject hitEffectPrefab;
@@ -22,9 +24,14 @@ public class GunController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         crosshair = FindFirstObjectByType<Crosshair>();
         originPos = Vector3.zero;
+
+        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnimator = currentGun.animator;
     }
     void Update()
     {
+        if (!isActivate) return;
+
         GunFireRateCalc();
         TryFire();
         TryReload();
@@ -130,6 +137,14 @@ public class GunController : MonoBehaviour
             FineSight();
         }
     }
+    public void CancelReload()
+    {
+        if (isReloading)
+        {
+            StopAllCoroutines();
+            isReloading = false;
+        }
+    }
 
     IEnumerator ReloadCoroutine()
     {
@@ -230,5 +245,20 @@ public class GunController : MonoBehaviour
     public Gun GetGun()
     {
         return currentGun;
+    }
+
+    public void GunChange(Gun gun)
+    {
+        if (WeaponManager.currentWeapon != null)
+        {
+            WeaponManager.currentWeapon.gameObject.SetActive(false);
+        }
+        currentGun = gun;
+        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnimator = currentGun.animator;
+        currentGun.transform.localPosition = Vector3.zero;
+
+        currentGun.gameObject.SetActive(true);
+        isActivate = true;
     }
 }

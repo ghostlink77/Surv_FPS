@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public string GunName;
+    public string gunName;
     public float range;
     public float accuracy;
     public float fireRate;
