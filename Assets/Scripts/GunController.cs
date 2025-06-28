@@ -13,13 +13,14 @@ public class GunController : MonoBehaviour
     [HideInInspector] public bool isFineSightMode = false;
 
     private AudioSource audioSource;
+    private Crosshair crosshair;
     private RaycastHit hitInfo;
     private Vector3 originPos;
-
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        crosshair = FindFirstObjectByType<Crosshair>();
         originPos = Vector3.zero;
     }
     void Update()
@@ -80,6 +81,7 @@ public class GunController : MonoBehaviour
     }
     private void Shoot()
     {
+        crosshair.FireAnimation();
         currentGun.currentAmmo--;
         currentFireRate = currentGun.fireRate;
         PlaySE(currentGun.fireSound);
@@ -93,7 +95,12 @@ public class GunController : MonoBehaviour
     }
     private void Hit()
     {
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hitInfo, currentGun.range))
+        float accuracy = crosshair.GetAccuracy() + currentGun.accuracy;
+        float ballisticRange = Random.Range(-accuracy, accuracy);
+
+        if (Physics.Raycast(camera.transform.position, 
+            camera.transform.forward + new Vector3(ballisticRange, ballisticRange, 0), 
+            out hitInfo, currentGun.range))
         {
             var clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);
@@ -103,6 +110,7 @@ public class GunController : MonoBehaviour
     {
         isFineSightMode = !isFineSightMode;
         currentGun.animator.SetBool("FineSightMode", isFineSightMode);
+        crosshair.FineSightAnimation(isFineSightMode);
 
         if (isFineSightMode)
         {
@@ -212,5 +220,15 @@ public class GunController : MonoBehaviour
     {
         audioSource.clip = clip;
         audioSource.Play();
+    }
+
+    public bool GetFineSightMode()
+    {
+        return isFineSightMode;
+    }
+
+    public Gun GetGun()
+    {
+        return currentGun;
     }
 }

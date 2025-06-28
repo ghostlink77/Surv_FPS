@@ -19,13 +19,17 @@ public class PlayerController : MonoBehaviour
     private float applyCrouchPosY;              // 적용되는 카메라 Y 위치(crouch)
 
     private float currentCameraRotationX = 0f;  // 카메라 X 회전값
-    private float applySpeed;                   // 적용되는 이동 속도
+    private float applySpeed;
+
+    private bool isWalking = false;
     private bool isRunning = false;
     private bool isGround = false;
     private bool isCrouching = false;
+    private Vector3 lastPos;
 
     [SerializeField] private Camera camera;
     private GunController gunController;
+    private Crosshair crosshair;
     private Rigidbody myRigid;
     private CapsuleCollider capsuleCollider;
     void Start()
@@ -33,10 +37,12 @@ public class PlayerController : MonoBehaviour
         myRigid = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         gunController = FindFirstObjectByType<GunController>();
+        crosshair = FindFirstObjectByType<Crosshair>();
 
         applySpeed = walkSpeed;
         originalPosY = camera.transform.localPosition.y;
         applyCrouchPosY = originalPosY;
+        lastPos = transform.position;
     }
 
     void Update()
@@ -48,6 +54,10 @@ public class PlayerController : MonoBehaviour
         Move();
         CameraRotation();
         CharacterRotation();
+    }
+    private void FixedUpdate()
+    {
+        MoveCheck();
     }
 
     private void TryRun()
@@ -78,7 +88,13 @@ public class PlayerController : MonoBehaviour
     private void Crouch()
     {
         isCrouching = !isCrouching;
+        crosshair.CrouchingAnimation(isCrouching);
 
+        if (isWalking)
+        {
+            isWalking = false;
+            crosshair.WalkingAnimation(isWalking);
+        }
         if (isCrouching)
         {
             applySpeed = crouchSpeed;
@@ -123,11 +139,13 @@ public class PlayerController : MonoBehaviour
         }
         gunController.CancelFineSight();
         isRunning = true;
+        crosshair.RunningAnimation(isRunning);
         applySpeed = runSpeed;
     }
     private void RunningCancel()
     {
         isRunning = false;
+        crosshair.RunningAnimation(isRunning);
         applySpeed = walkSpeed;
     }
     private void Move()
@@ -140,9 +158,27 @@ public class PlayerController : MonoBehaviour
 
         myRigid.MovePosition(myRigid.position + _velocity * Time.deltaTime);
     }
+    private void MoveCheck()
+    {
+        if (!isRunning && !isCrouching && isGround)
+        {
+            if (Vector3.Distance(lastPos, transform.position) >= 0.01f)
+            {
+                isWalking = true;
+            }
+            else
+            {
+                isWalking = false;
+            }
+            crosshair.WalkingAnimation(isWalking);
+            lastPos = transform.position;
+        }
+        
+    }
     private void IsGround()
     {
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
+        crosshair.RunningAnimation(!isGround);
     }
     private void CameraRotation()
     {
