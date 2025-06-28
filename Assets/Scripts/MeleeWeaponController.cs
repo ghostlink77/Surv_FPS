@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+// 근접무기 컨트롤러 추상 클래스
 public abstract class MeleeWeaponController : MonoBehaviour
 {
     [SerializeField] protected MeleeWeapon currentMeleeWeapon;

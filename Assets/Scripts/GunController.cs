@@ -102,12 +102,13 @@ public class GunController : MonoBehaviour
     private void Hit()
     {
         float accuracy = crosshair.GetAccuracy() + currentGun.accuracy;
-        float ballisticRange = Random.Range(-accuracy, accuracy);
+        float ballisticRange = Random.Range(-accuracy, accuracy);       // 탄퍼짐 범위
 
         if (Physics.Raycast(camera.transform.position, 
             camera.transform.forward + new Vector3(ballisticRange, ballisticRange, 0), 
             out hitInfo, currentGun.range))
         {
+            // 파티클 효과 생성 / 2초 후 제거
             var clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);
         }
@@ -115,8 +116,8 @@ public class GunController : MonoBehaviour
     private void FineSight()
     {
         isFineSightMode = !isFineSightMode;
-        currentGun.animator.SetBool("FineSightMode", isFineSightMode);
-        crosshair.FineSightAnimation(isFineSightMode);
+        currentGun.animator.SetBool("FineSightMode", isFineSightMode);  // 총기 애니메이션
+        crosshair.FineSightAnimation(isFineSightMode);                  // 크로스헤어 애니메이션
 
         if (isFineSightMode)
         {
@@ -198,6 +199,7 @@ public class GunController : MonoBehaviour
         Vector3 recoilBack = new Vector3(currentGun.retroActionForce, originPos.y, originPos.z);
         Vector3 retroActionRecoilBack = new Vector3(currentGun.retroActionFineSightForce, currentGun.fineSightOriginPos.y, currentGun.fineSightOriginPos.z);
 
+        // 정조준 사격 모드와 지향 사격 모드 구분
         if (!isFineSightMode)
         {
             currentGun.transform.localPosition = originPos;

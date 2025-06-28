@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    public static bool isChangeWeapon = false;
+    public static bool isChangeWeapon = false;      // 무기 변경 중인지 여부(무기 변경 코루틴 동안 다시 무기 변경 방지)
     public static Transform currentWeapon;
     public static Animator currentWeaponAnimator;
 
@@ -12,15 +12,19 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private float changeWeaponEndDelay;
     [SerializeField] private string currentWeaponType;
 
+    // Weapon Controllers
     [SerializeField] private GunController gunController;
     [SerializeField] private HandController handController;
     [SerializeField] private AxeController axeController;
     [SerializeField] private PickaxeController pickaxeController;
+
+    // Weapon Arrays
     [SerializeField] private Gun[] guns;
     [SerializeField] private MeleeWeapon[] hands;
     [SerializeField] private MeleeWeapon[] axes;
     [SerializeField] private MeleeWeapon[] pickaxes;
 
+    // Dictionaries for quick access
     private Dictionary<string, Gun> gunDictionary = new Dictionary<string, Gun>();
     private Dictionary<string, MeleeWeapon> handDictionary = new Dictionary<string, MeleeWeapon>();
     private Dictionary<string, MeleeWeapon> axeDictionary = new Dictionary<string, MeleeWeapon>();

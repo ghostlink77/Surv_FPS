@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
         myRigid.MovePosition(myRigid.position + _velocity * Time.deltaTime);
     }
-    private void MoveCheck()
+    private void MoveCheck() // 걷는 중인지 체크(크로스헤어 애니메이션을 위해)
     {
         if (!isRunning && !isCrouching && isGround)
         {
