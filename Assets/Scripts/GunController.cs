@@ -5,18 +5,22 @@ using UnityEngine.Rendering;
 public class GunController : MonoBehaviour
 {
     [SerializeField] private Gun currentGun;
-    [SerializeField] private Vector3 originPos;
+    [SerializeField] private Camera camera;
+    [SerializeField] private GameObject hitEffectPrefab;
 
     private float currentFireRate;
     private bool isReloading = false;
-    private bool isFineSightMode = false;
+    [HideInInspector] public bool isFineSightMode = false;
 
     private AudioSource audioSource;
+    private RaycastHit hitInfo;
+    private Vector3 originPos;
+
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        //originPos = transform.localPosition;
+        originPos = Vector3.zero;
     }
     void Update()
     {
@@ -26,7 +30,7 @@ public class GunController : MonoBehaviour
         TryFineSight();
     }
 
-
+    // 연사속도 계산
     private void GunFireRateCalc()
     {
         if (currentFireRate > 0)
@@ -80,11 +84,20 @@ public class GunController : MonoBehaviour
         currentFireRate = currentGun.fireRate;
         PlaySE(currentGun.fireSound);
         currentGun.muzzleFlash.Play();
+        Hit();
 
         StopAllCoroutines();
         StartCoroutine(RetroActionCoroutine());
 
         Debug.Log("Fired");
+    }
+    private void Hit()
+    {
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hitInfo, currentGun.range))
+        {
+            var clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+            Destroy(clone, 2f);
+        }
     }
     private void FineSight()
     {
@@ -139,6 +152,8 @@ public class GunController : MonoBehaviour
             Debug.Log("소유한 탄약이 없습니다.");
         }
     }
+
+    // 정조준 활성화/비활성화
     IEnumerator FineSightActivateCoroutine()
     {
         while (currentGun.transform.localPosition != currentGun.fineSightOriginPos)
@@ -155,6 +170,7 @@ public class GunController : MonoBehaviour
             yield return null;
         }
     }
+    // 레트로 액션(반동)
     IEnumerator RetroActionCoroutine()
     {
         Vector3 recoilBack = new Vector3(currentGun.retroActionForce, originPos.y, originPos.z);
