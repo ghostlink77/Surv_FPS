@@ -14,11 +14,17 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] private GunController gunController;
     [SerializeField] private HandController handController;
+    [SerializeField] private AxeController axeController;
+    [SerializeField] private PickaxeController pickaxeController;
     [SerializeField] private Gun[] guns;
-    [SerializeField] private Hand[] hands;
+    [SerializeField] private MeleeWeapon[] hands;
+    [SerializeField] private MeleeWeapon[] axes;
+    [SerializeField] private MeleeWeapon[] pickaxes;
 
     private Dictionary<string, Gun> gunDictionary = new Dictionary<string, Gun>();
-    private Dictionary<string, Hand> HandDictionary = new Dictionary<string, Hand>();
+    private Dictionary<string, MeleeWeapon> handDictionary = new Dictionary<string, MeleeWeapon>();
+    private Dictionary<string, MeleeWeapon> axeDictionary = new Dictionary<string, MeleeWeapon>();
+    private Dictionary<string, MeleeWeapon> pickaxeDictionary = new Dictionary<string, MeleeWeapon>();
 
     void Start()
     {
@@ -26,9 +32,17 @@ public class WeaponManager : MonoBehaviour
         {
             gunDictionary.Add(gun.gunName, gun);
         }
-        foreach (Hand hand in hands)
+        foreach (MeleeWeapon hand in hands)
         {
-            HandDictionary.Add(hand.handName, hand);
+            handDictionary.Add(hand.MeleeWeaponName, hand);
+        }
+        foreach (MeleeWeapon axe in axes)
+        {
+            axeDictionary.Add(axe.MeleeWeaponName, axe);
+        }
+        foreach (MeleeWeapon pickaxe in pickaxes)
+        {
+            axeDictionary.Add(pickaxe.MeleeWeaponName, pickaxe);
         }
     }
 
@@ -43,6 +57,14 @@ public class WeaponManager : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 StartCoroutine(ChangeWeaponCoroutine("Gun", "SubMachineGun1"));
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(ChangeWeaponCoroutine("Axe", "Axe"));
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(ChangeWeaponCoroutine("Pickaxe", "Pickaxe"));
             }
         }
     }
@@ -75,6 +97,12 @@ public class WeaponManager : MonoBehaviour
             case "Hand":
                 HandController.isActivate = false;
                 break;
+            case "Axe":
+                AxeController.isActivate = false;
+                break;
+            case "Pickaxe":
+                PickaxeController.isActivate = false;
+                break;
         }
     }
     private void WeaponChange(string type, string name)
@@ -85,7 +113,15 @@ public class WeaponManager : MonoBehaviour
         }
         else if (type == "Hand")
         {
-            handController.HandChange(HandDictionary[name]);
+            handController.MeleeWeaponChange(handDictionary[name]);
+        }
+        else if (type == "Axe")
+        {
+            axeController.MeleeWeaponChange(axeDictionary[name]);
+        }
+        else if (type == "Pickaxe")
+        {
+            pickaxeController.MeleeWeaponChange(pickaxeDictionary[name]);
         }
     }
 }

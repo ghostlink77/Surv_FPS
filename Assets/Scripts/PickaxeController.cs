@@ -1,10 +1,15 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
-public class HandController : MeleeWeaponController
+public class PickaxeController : MeleeWeaponController
 {
-    public static bool isActivate = false;
+    public static bool isActivate = true;
 
+    private void Start()
+    {
+        WeaponManager.currentWeapon = currentMeleeWeapon.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnimator = currentMeleeWeapon.animator;
+    }
     void Update()
     {
         if (!isActivate) return;

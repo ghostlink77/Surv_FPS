@@ -1,10 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public class HandController : MeleeWeaponController
+public class AxeController : MeleeWeaponController
 {
     public static bool isActivate = false;
 
+    //private void Start()
+    //{
+    //    WeaponManager.currentWeapon = currentMeleeWeapon.GetComponent<Transform>();
+    //    WeaponManager.currentWeaponAnimator = currentMeleeWeapon.animator;
+    //}
     void Update()
     {
         if (!isActivate) return;

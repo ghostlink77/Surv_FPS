@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 public class GunController : MonoBehaviour
 {
-    public static bool isActivate = true;
+    public static bool isActivate = false;
 
     [SerializeField] private Gun currentGun;
     [SerializeField] private Camera camera;
@@ -25,8 +25,7 @@ public class GunController : MonoBehaviour
         crosshair = FindFirstObjectByType<Crosshair>();
         originPos = Vector3.zero;
 
-        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
-        WeaponManager.currentWeaponAnimator = currentGun.animator;
+        
     }
     void Update()
     {
