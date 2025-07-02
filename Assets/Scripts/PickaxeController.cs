@@ -22,6 +22,10 @@ public class PickaxeController : MeleeWeaponController
         {
             if (CheckObject())
             {
+                if (hitInfo.transform.tag == "Rock")
+                {
+                    hitInfo.transform.GetComponent<Rock>().Mining();
+                }
                 isSwinging = false;
                 Debug.Log("Hit: " + hitInfo.collider.name);
             }
