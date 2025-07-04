@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
-  destroyTime: 5
+  destroyTime: 2
   itemCount: 3
   collider: {fileID: 988897084481081690}
   go_rock: {fileID: 5249532546382219660}

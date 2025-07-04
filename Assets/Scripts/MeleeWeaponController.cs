@@ -13,6 +13,10 @@ public abstract class MeleeWeaponController : MonoBehaviour
 
     protected void TryAttack()
     {
+        if (Inventory.inventoryActivated)
+        {
+            return;
+        }
         if (Input.GetButton("Fire1"))
         {
             if (!isAttacking)

@@ -46,7 +46,7 @@ public class WeaponManager : MonoBehaviour
         }
         foreach (MeleeWeapon pickaxe in pickaxes)
         {
-            axeDictionary.Add(pickaxe.MeleeWeaponName, pickaxe);
+            pickaxeDictionary.Add(pickaxe.MeleeWeaponName, pickaxe);
         }
     }
 

@@ -8,6 +8,7 @@ public class ActionController : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private TextMeshProUGUI actionText;
+    [SerializeField] private Inventory inventory;
 
     private bool pickupActivated = false;
 
@@ -62,6 +63,7 @@ public class ActionController : MonoBehaviour
         {
             if (hitInfo.transform != null)
             {
+                inventory.AcquireItem(hitInfo.transform.GetComponent<ItemPickup>().item);
                 Destroy(hitInfo.transform.gameObject);
                 InfoDisappear();
                 Debug.Log("Picked up: " + hitInfo.transform.GetComponent<ItemPickup>().item.itemName);
