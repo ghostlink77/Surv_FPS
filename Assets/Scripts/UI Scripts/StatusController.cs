@@ -133,6 +133,17 @@ public class StatusController : MonoBehaviour
             currentHp = maxHp;
         }
     }
+    public void IncreaseSp(int count)
+    {
+        if (currentSp + count <= maxSp)
+        {
+            currentSp += count;
+        }
+        else
+        {
+            currentSp = maxSp;
+        }
+    }
     public void IncreaseDp(int count)
     {
         if (currentDp + count <= maxDp)

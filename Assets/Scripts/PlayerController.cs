@@ -52,10 +52,10 @@ public class PlayerController : MonoBehaviour
         IsGround();
         TryJump();
         TryRun();
-        TryCrouch();
         Move();
         if (!Inventory.inventoryActivated)
         {
+            TryCrouch();
             CameraRotation();
             CharacterRotation();
         }
@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
         float _XRotation = Input.GetAxisRaw("Mouse Y");
         float _cameraRotationX = _XRotation * lookSensitivity;
         currentCameraRotationX -= _cameraRotationX;
-        currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
+        currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit + 15f);
 
         camera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
     }

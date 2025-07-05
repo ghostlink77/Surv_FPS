@@ -12,12 +12,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     [SerializeField] private TextMeshProUGUI itemCountText;
     [SerializeField] private GameObject go_countImage;
 
-    private WeaponManager weaponManager;
-
+    private ItemEffectDataBase itemEffectDataBase;
 
     void Start()
     {
-        weaponManager = FindFirstObjectByType<WeaponManager>();
+        itemEffectDataBase = FindFirstObjectByType<ItemEffectDataBase>();
     }
 
     // 인벤토리 슬롯에 아이템 추가
@@ -95,13 +94,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
             {
                 return;
             }
-            if (item.itemType != Item.ItemType.Equipment)
+            itemEffectDataBase.UseItem(item);
+            if (item.itemType == Item.ItemType.Used)
             {
-                StartCoroutine(weaponManager.ChangeWeaponCoroutine(item.weaponType, item.itemName));
-            }
-            else
-            {
-                Debug.Log(item.itemName + "사용");
                 SetSlotCount(-1);
             }
         }
