@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
         TryJump();
         TryRun();
         Move();
+        // 인벤토리 활성화 상태면 카메라 회전 정지
         if (!Inventory.inventoryActivated)
         {
             TryCrouch();
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // 걷는 중인지 체크(크로스헤어 애니메이션을 위해)
         MoveCheck();
     }
 
@@ -118,7 +120,7 @@ public class PlayerController : MonoBehaviour
         }
         StartCoroutine(CrouchCoroutine());
     }
-    IEnumerator CrouchCoroutine()
+    IEnumerator CrouchCoroutine() // 크로우치 카메라 이동 코루틴
     {
         float _posY = camera.transform.localPosition.y;
         int count = 0;

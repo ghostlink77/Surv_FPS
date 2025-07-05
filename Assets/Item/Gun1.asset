@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Gun1
   m_EditorClassIdentifier: 
   itemName: SubMachineGun1
+  itemDescription: 'basic
+
+    submachinegun'
   weaponType: Gun
   itemImage: {fileID: 21300000, guid: 218ee91900423e2499485c899bed29ac, type: 3}
   itemPrefab: {fileID: 4641429785825100328, guid: b0ac8c5ca18dbc94db162b83d0d44f38, type: 3}

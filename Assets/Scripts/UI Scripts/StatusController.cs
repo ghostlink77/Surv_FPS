@@ -50,8 +50,6 @@ public class StatusController : MonoBehaviour
         currentThirsty = maxThirsty;
         currentSatisfy = maxSatisfy;
     }
-
-    // Update is called once per frame
     void Update()
     {
         Hungry();

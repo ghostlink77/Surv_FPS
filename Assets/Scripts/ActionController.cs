@@ -29,10 +29,12 @@ public class ActionController : MonoBehaviour
         }
     }
 
+    // 주울 수 있는 아이템을 확인
     private void CheckItem()
     {
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, layerMask))
         {
+            // 주울 수 있는 아이템이면 pick up 텍스트 표시
             if (hitInfo.transform.tag == "Item")
             {
                 ItemInfoAppear();
@@ -63,6 +65,7 @@ public class ActionController : MonoBehaviour
         {
             if (hitInfo.transform != null)
             {
+                // 인벤토리에 아이템 추가
                 inventory.AcquireItem(hitInfo.transform.GetComponent<ItemPickup>().item);
                 Destroy(hitInfo.transform.gameObject);
                 InfoDisappear();

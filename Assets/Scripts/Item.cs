@@ -4,6 +4,8 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string itemName;
+    [TextArea]
+    public string itemDescription;
     public string weaponType;
 
     public Sprite itemImage;

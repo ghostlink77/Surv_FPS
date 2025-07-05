@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Item item;
     public int itemCount;
@@ -135,5 +135,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
             ChangeSlot();
         }
         
+    }
+
+    // 마우스포인터가 슬롯 위에 올라갔을 때 툴팁 표시
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            itemEffectDataBase.ShowToolTip(item, transform.position);
+        }
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        itemEffectDataBase.HideToolTip();
     }
 }

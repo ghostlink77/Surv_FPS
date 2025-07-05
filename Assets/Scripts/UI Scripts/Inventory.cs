@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour
     // 인벤토리에 아이템 획득
     public void AcquireItem(Item item, int count = 1)
     {
-        // 아이템이 Equipment 타입이 아닐 경우, 같은 아이템이 있는지 확인후 개수 증가
+        // 아이템이 Equipment 타입이 아닐 경우, 같은 아이템이 있는지 확인후 개수 증가(SetSlotCount)
         if (item.itemType != Item.ItemType.Equipment)
         {
             for (int i = 0; i < slots.Length; i++)
@@ -60,7 +60,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        // 아이템이 Equipment 타입이거나, 같은 아이템이 없는 경우 새로운 슬롯에 아이템 추가
+        // 아이템이 Equipment 타입이거나, 같은 아이템이 없는 경우 새로운 슬롯에 아이템 추가(AddItem)
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item == null)

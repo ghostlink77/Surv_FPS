@@ -17,13 +17,25 @@ public class ItemEffectDataBase : MonoBehaviour
 
     [SerializeField] private StatusController playerStatus;
     [SerializeField] private WeaponManager weaponManager;
+    [SerializeField] private SlotToolTip slotToolTip;
+
+    public void ShowToolTip(Item item, Vector3 pos)
+    {
+        slotToolTip.ShowToolTip(item, pos);
+    }
+    public void HideToolTip()
+    {
+        slotToolTip.HideToolTip();
+    }
 
     public void UseItem(Item item)
     {
+        // 아이템이 장비일 경우 장착(WeaponManager)
         if (item.itemType == Item.ItemType.Equipment)
         {
             StartCoroutine(weaponManager.ChangeWeaponCoroutine(item.weaponType, item.itemName));
         }
+        // 아이템이 소모품일 경우 효과 적용(StatusController)
         else if (item.itemType == Item.ItemType.Used)
         {
             foreach (ItemEffect effect in itemEffects)
