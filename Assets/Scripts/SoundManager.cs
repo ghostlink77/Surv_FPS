@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Sound 클래스 : 이름과 오디오 클립을 저장
 [System.Serializable]
 public class Sound
 {
@@ -14,7 +15,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource[] audioSourceEffects;
     public AudioSource audioSourceBgm;
 
-    public string[] playSoundName;
+    public string[] playSoundName;          // 플레이 중인 사운드 이름
 
     [SerializeField] public Sound[] effectSounds;
     [SerializeField] public Sound[] bgmSounds;
@@ -39,6 +40,7 @@ public class SoundManager : MonoBehaviour
         playSoundName = new string[audioSourceEffects.Length];
     }
 
+    // 이름을 통해 사운드 재생
     public void PlaySE(string name)
     {
         foreach (var sound in effectSounds)
