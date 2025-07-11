@@ -4,7 +4,8 @@ using System.Collections;
 // 근접무기 컨트롤러 추상 클래스
 public abstract class MeleeWeaponController : MonoBehaviour
 {
-    [SerializeField] protected MeleeWeapon currentMeleeWeapon;
+    [SerializeField] protected MeleeWeapon currentMeleeWeapon;      // 현재 장착된 근접 무기
+    [SerializeField] protected LayerMask layerMask;
 
     protected bool isAttacking = false;
     protected bool isSwinging = false;
@@ -44,7 +45,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
 
     protected bool CheckObject()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, currentMeleeWeapon.range))
+        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, currentMeleeWeapon.range, layerMask))
         {
             return true;
         }

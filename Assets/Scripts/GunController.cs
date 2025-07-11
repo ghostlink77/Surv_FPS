@@ -10,6 +10,8 @@ public class GunController : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private GameObject hitEffectPrefab;
 
+    [SerializeField] private LayerMask layerMask; // 총알이 충돌할 레이어
+
     private float currentFireRate;
     private bool isReloading = false;
     [HideInInspector] public bool isFineSightMode = false;
@@ -106,7 +108,7 @@ public class GunController : MonoBehaviour
 
         if (Physics.Raycast(camera.transform.position, 
             camera.transform.forward + new Vector3(ballisticRange, ballisticRange, 0), 
-            out hitInfo, currentGun.range))
+            out hitInfo, currentGun.range, layerMask))
         {
             // 파티클 효과 생성 / 2초 후 제거
             var clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
