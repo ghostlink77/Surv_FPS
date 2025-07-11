@@ -1553,7 +1553,7 @@ GameObject:
   - component: {fileID: 297650582}
   m_Layer: 0
   m_Name: Pig
-  m_TagString: NPC
+  m_TagString: WeakAnimal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1574,6 +1574,7 @@ MonoBehaviour:
   hp: 2
   walkSpeed: 2
   runSpeed: 5
+  turnSpeed: 0.05
   animator: {fileID: 1190959686}
   rigid: {fileID: 297650580}
   collider: {fileID: 297650579}
@@ -1777,7 +1778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae700588c793d848a0fd576c60f359a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewAngle: 130
+  viewAngle: 110
   viewDistance: 10
   targetMask:
     serializedVersion: 2
