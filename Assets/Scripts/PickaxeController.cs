@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TreeEditor;
 
 public class PickaxeController : MeleeWeaponController
 {
@@ -25,6 +26,11 @@ public class PickaxeController : MeleeWeaponController
                 if (hitInfo.transform.tag == "Rock")
                 {
                     hitInfo.transform.GetComponent<Rock>().Mining();
+                }
+                else if(hitInfo.transform.tag == "NPC")
+                {
+                    SoundManager.instance.PlaySE("Animal_Hit");
+                    hitInfo.transform.GetComponent<Pig>().Damaged(1, transform.position);
                 }
                 isSwinging = false;
                 Debug.Log("Hit: " + hitInfo.collider.name);

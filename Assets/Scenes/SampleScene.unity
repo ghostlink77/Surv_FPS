@@ -1563,7 +1563,7 @@ MonoBehaviour:
   rigid: {fileID: 297650580}
   collider: {fileID: 297650579}
   walkTime: 5
-  waitTime: 2
+  waitTime: 3
 --- !u!65 &297650579
 BoxCollider:
   m_ObjectHideFlags: 0
