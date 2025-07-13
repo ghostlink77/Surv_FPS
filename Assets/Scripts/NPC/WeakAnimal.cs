@@ -1,15 +1,17 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class WeakAnimal : Animal
 {
     public void Run(Vector3 targetPos)
     {
-        direction = Quaternion.LookRotation(transform.position - targetPos).eulerAngles;
+        Vector3 temp = transform.position - targetPos;
+        destination = new Vector3(temp.x, 0f, temp.z).normalized;
 
         currentTime = runTime;
         isWalking = false;
         isRunning = true;
-        applySpeed = runSpeed;
+        nav.speed = runSpeed;
         animator.SetBool("Running", isRunning);
     }
 
